@@ -1,0 +1,19 @@
+{
+  "name": "fedc5_vanilla_cgv",
+  "version": "0.0.1",
+  "description": "vanilla TS를 이용한 CGV 클론코딩",
+  "type": "module",
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prgrms-web-devcourse/FEDC5_vanilla_CGV.git"
+  },
+  "keywords": [ "CGV", "영화 예매 클론코딩" ],
+  "author": "김성빈, 모유경, 김윤경, 신준혁, 신지희 (프로그래머스 프론트엔드 데브코스 5기 이희진팀)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/prgrms-web-devcourse/FEDC5_vanilla_CGV/issues"
+  },
+  "homepage": "https://github.com/prgrms-web-devcourse/FEDC5_vanilla_CGV#readme"
+}
