@@ -28,6 +28,11 @@ module.exports = {
         "jest-dom",
         "testing-library",
     ],
+    settings: {
+        "import/resolver": {
+            typescript: {},
+        },
+    },
     rules: {
         "import/no-cycle": "error",
         "import/no-unresolved": "error",
