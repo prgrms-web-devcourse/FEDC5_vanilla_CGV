@@ -1,0 +1,4 @@
+{
+    // VSCode 확장 설치 권장 (Prettier, ESLint)
+    "recommendations": ["dbaeumer.vscode-eslint", "esbenp.prettier-vscode"]
+}
