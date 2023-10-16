@@ -1,0 +1,19 @@
+.menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+.menu > img {
+    width: 60px;
+    height: 60px;
+}
+.menu > span {
+    margin-top: 10px;
+    font-weight: 500;
+    font-size: 13px;
+    letter-spacing: -0.022em;
+    line-height: 1.231em;
+    text-align: center;
+}
