@@ -1,12 +1,12 @@
 import Menu from "./components/Menu";
 
-interface Page {
+interface Component {
     render: () => void;
 }
 
-new mainPage();
-export default function mainPage(this: Page) {
-    const $div: HTMLDivElement = document.createElement("div");
+new MainPage();
+function MainPage(this: Component) {
+    const $div = document.createElement("div");
     document.getElementById("root")?.append($div);
     this.render = () => {
         new Menu($div);

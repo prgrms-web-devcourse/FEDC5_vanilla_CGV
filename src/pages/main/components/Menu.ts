@@ -26,18 +26,17 @@ interface Component {
 }
 
 export default function Menu(this: Component, $target: Element) {
-    const $div: HTMLDivElement = document.createElement("div");
+    const $div = document.createElement("div");
+    $div.classList.add("main__menu-container");
     $target.append($div);
-    $div.attributeStyleMap.set("display", "flex");
-    $div.attributeStyleMap.set("margin-bottom", "100px"); //test
 
     this.render = () => {
         $div.innerHTML = `
         ${dummyData
             .map(({ title, imageUrl }, index) => {
-                return `<div class="menu" key=menu-${index}>
+                return `<div class="main__menu-item" key=menu-${index}>
                  <img src=${imageUrl} alt=${title}  />
-                 <span >${title}</span>
+                 <span>${title}</span>
              </div>`;
             })
             .join("")}
