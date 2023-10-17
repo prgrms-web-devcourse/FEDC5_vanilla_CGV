@@ -1,4 +1,4 @@
-const dummyData: { isFull: boolean; imageUrl: string }[] = [
+const EVENT_DATA: { isFull: boolean; imageUrl: string }[] = [
     {
         isFull: false,
         imageUrl:
@@ -24,22 +24,24 @@ export default function Event(this: Component, $target: Element) {
 
     this.render = () => {
         $div.innerHTML = `
-        <div class="event-info">
-            <span class="title">Event</span>
-            <span class="showAll">전체보기 > </span>
-        </div>
-        <div class="event-list">
-        ${dummyData
-            .map(({ isFull, imageUrl }, index) => {
+            <div class="event-info">
+                <span class="title">Event</span>
+                <span class="showAll">전체보기 > </span>
+            </div>
+            <div class="event-list">
+            ${EVENT_DATA.map(({ isFull, imageUrl }, index) => {
+                const style = isFull ? "" : "width: 90%; margin: 0% 5%;";
                 return `
-                 <img key=event-${index} style=${
-                     !isFull && `width:90%;margin:0%5%;`
-                 } src=${imageUrl} alt='이벤트-${index + 1}' />
-          `;
-            })
-            .join("")}
-        
-        </div>`;
+                        <img 
+                            key="event-${index}"
+                            style="${style}"
+                            src="${imageUrl}"
+                            alt="이벤트-${index + 1}"
+                        />
+                    `;
+            }).join("")}
+            </div>
+        `;
     };
     this.render();
 }
