@@ -50,17 +50,17 @@ export default function ReservationFilter({ $target, name, onSortSelect }: Sort)
                         name === "MovieName"
                             ? "list-style:circle;color:black;font-weigth:900"
                             : "list-style:none;color:gray;font-weigth:normal"
-                    }><a class="sortList">영화순</a></li>
+                    }><a class="sortList" data-sort="movie">영화순</a></li>
                     <li style=${
                         name === "MovieTheater"
                             ? "list-style:circle;color:black;font-weigth:900"
                             : "list-style:none;color:gray;font-weigth:normal"
-                    }><a class="sortList" >극장순</a></li>
+                    }><a class="sortList" data-sort="theater">극장순</a></li>
                     <li style=${
                         name === "MovieTime"
                             ? "list-style:circle;color:black;font-weigth:900"
                             : "list-style:none; color:gray;font-weigth:normal"
-                    }><a class="sortList">시간순</a></li>
+                    }><a class="sortList" data-sort="time">시간순</a></li>
                 </ul>
             </div>
             <div class="filterBar__filterButton">
@@ -87,7 +87,8 @@ export default function ReservationFilter({ $target, name, onSortSelect }: Sort)
                 if (target.textContent === null) {
                     throw new Error();
                 }
-                onSortSelect(target.textContent);
+                const { sort } = target.dataset;
+                onSortSelect(sort!);
             }
         });
     };
