@@ -2,13 +2,14 @@ interface Sort {
     $target: Element | null;
     name: string;
     onSortSelect: (selected: string) => void;
+    onfilterSelect: () => void;
 }
 
 /*
     name : [MovieName,MovieTheater, MovieTime]
 */
 
-export default function ReservationFilter({ $target, name, onSortSelect }: Sort) {
+export default function ReservationFilter({ $target, name, onSortSelect, onfilterSelect }: Sort) {
     const $div: HTMLDivElement = document.createElement("div");
     $div.className = "filterBar";
     if ($target === null) {
@@ -64,7 +65,7 @@ export default function ReservationFilter({ $target, name, onSortSelect }: Sort)
                 </ul>
             </div>
             <div class="filterBar__filterButton">
-                <a>필터</a>
+                <a style="cursor:pointer">필터</a>
             </div>
         `;
         const $filterBar_stringSort_ul: HTMLElement = document.querySelector(
@@ -90,6 +91,9 @@ export default function ReservationFilter({ $target, name, onSortSelect }: Sort)
                 const { sort } = target.dataset;
                 onSortSelect(sort!);
             }
+        });
+        document.querySelector(".filterBar__filterButton")?.addEventListener("click", () => {
+            onfilterSelect();
         });
     };
 
