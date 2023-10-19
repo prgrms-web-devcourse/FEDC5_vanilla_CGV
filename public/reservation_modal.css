@@ -1,0 +1,138 @@
+.modal__backdrop {
+    /* fixed의 기준이 되는 부모 요소가 중요하므로, #root 바로 하단에 렌더링해야 함 */
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    /* backdrop 구현 (CGV=background=black, opacity=0.5) */
+    background-color: rgba(0, 0, 0, 0.5);
+
+    /* z-index 값은 일단 1,000을 max로 두기 */
+    z-index: 1000;
+
+    /* opacity는 fade out을 위함 */
+    opacity: 1;
+    transition-property: opacity;
+
+    /* 0.5s 딜레이를 줘서 모달이 내려가고 backdrop이 fadeout하게 */
+    transition-duration: 0.5s;
+    transition-delay: 0.5s;
+}
+
+.modal__backdrop--invisible {
+    /* opacity는 fade out을 위함 */
+    opacity: 0;
+
+    /* 여기에 transform을 쓰면 opacity 트랜지션 전에 사라짐. setTimeout으로 처리했음. */
+}
+
+.modal__root--for-animation {
+    /* backdrop 보다 앞에 있게 */
+    z-index: 1100;
+
+    /* transform으로 동작 시 정확한 크기를 설정해야 하기 때문에 필요 */
+    /* 이 값은 JS로 설정됨. 모달이 표시되기 전에. */
+    --modal-height: 0px;
+
+    /* 높이 제한. 자식이 더 클 경우 현재 부모에 스크롤이 생김 */
+    max-height: 80vh;
+
+    background-color: white;
+
+    /* 컨텐츠 래핑 */
+    padding: 10px;
+
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.modal__container {
+    /* 왜 부모 height: 100%를 못 받고 있지? */
+    /* 20px은 부모의 padding을 의미 */
+    height: calc(100% - 20px);
+
+    display: grid;
+    grid-template-columns: 1fr;
+    /* header, footer는 minmax(min-content, max-content) */
+    grid-template-rows: auto 1fr auto;
+    /* grid 영역 표시 레이아웃 */
+    grid-template-areas:
+        "header"
+        "main"
+        "footer";
+}
+
+.modal__body__scroll_container {
+    /* grid 영역 이름 지정 */
+    grid-area: main;
+
+    overflow: auto;
+}
+
+.modal__footer {
+    /* grid 영역 이름 지정 */
+    grid-area: footer;
+}
+
+.modal__closeButton {
+    /* container 소속으로 우측 상단에 배치 */
+    position: fixed;
+    top: 10px;
+    right: 10px;
+
+    /* 유사 CGV 스타일링 */
+    /* TODO: 아이콘 사용하기 */
+    width: 38px;
+    height: 38px;
+    opacity: 50%;
+    border-radius: 50px;
+    font-size: 20px;
+    border: none;
+    cursor: pointer;
+}
+
+/* https://codepen.io/anujashukla/pen/yeyvpx */
+/* 당장은 modal에만 사용하는 것으로 기획됨 (CSS Variable 필요) */
+.slideInUp {
+    /* transform 사용 시 fixed, sticky 미작동 */
+    animation-name: modalSlideUp;
+    animation-duration: 0.5s;
+
+    /* delay = fade-in 후 slide-up 하기 위함 */
+    animation-delay: 0.5s;
+    animation-fill-mode: both;
+}
+
+@keyframes modalSlideUp {
+    0% {
+        visibility: visible;
+        transform: translateY(100vh);
+    }
+    100% {
+        /* 20vh를 넘어가면 20vh까지만 들어올림 */
+        /* min이 아닌 max로 지정해야 함. 
+        100vh에서 얼마나 빼느냐가 기준이어서, 
+        컴포넌트가 작으면 20vh보다 크게 됨 */
+        transform: translateY(max(calc(100vh - var(--modal-height)), 20vh));
+    }
+}
+
+.slideInDown {
+    animation-name: modalSlideDown;
+    /* delay = slide-down 후 fade-out하기 위해 delay 없이 진행 */
+    animation-duration: 0.5s;
+    animation-fill-mode: both;
+}
+
+@keyframes modalSlideDown {
+    0% {
+        transform: translateY(max(calc(100vh - var(--modal-height)), 20vh));
+    }
+    100% {
+        visibility: visible;
+        transform: translateY(100vh);
+    }
+}
