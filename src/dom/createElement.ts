@@ -1,12 +1,12 @@
 // properties 추론을 활용하기 위한 타입
-interface DOMSpec<T extends keyof HTMLElementTagNameMap> {
-    id?: string;
-    classes?: string | string[];
-    props?: {
-        [key in keyof HTMLElementTagNameMap[T]]?: HTMLElementTagNameMap[T][key];
-    };
-    children?: HTMLElement | Text | (HTMLElement | Text)[];
-}
+type DOMSpec<T extends keyof HTMLElementTagNameMap> =
+    | {
+          children?: HTMLElement | HTMLElement[];
+          className?: string | string[];
+      }
+    | {
+          [key in keyof HTMLElementTagNameMap[T]]?: HTMLElementTagNameMap[T][key];
+      };
 
 /**
  * HTML 요소 생성 및 속성 할당을 간소화할 목적으로 만든 함수
@@ -18,43 +18,49 @@ interface DOMSpec<T extends keyof HTMLElementTagNameMap> {
  * @param tagName 생성할 HTML 타입
  * @returns HTML 요소
  */
-export const createElement =
+const createElement =
     <T extends keyof HTMLElementTagNameMap>(tagName: T) =>
-    ({ id, classes = [], props = {}, children = [] }: DOMSpec<T>): HTMLElementTagNameMap[T] => {
+    ({ className = "", children = [], ...props }: DOMSpec<T>): HTMLElementTagNameMap[T] => {
         // 1. 요소 생성
-        const $root = document.createElement(tagName);
+        const $elem = document.createElement(tagName);
 
-        // 2. 요소의 class 설정
-        if (typeof classes === "string") {
-            $root.className = classes;
-        } else {
-            $root.className = classes.join(" ");
+        // 2. className 타입에 따라 다르게
+        if (typeof className === "string" && className.length > 0) {
+            $elem.className = className;
         }
 
-        // 3. 요소의 id 설정
-        if (id) {
-            $root.id = id;
+        if (className instanceof Array) {
+            $elem.className = className.join(" ");
         }
 
-        // 4. 요소의 property 설정대로 추가
+        // 3. 요소의 property 설정대로 추가
         for (const property of Object.keys(props)) {
-            $root[property] = props[property];
+            $elem[property] = props[property];
         }
 
-        // 5. 자식 요소 생성 및 등록
+        // 4. 자식 요소 생성 및 등록
         if (children instanceof HTMLElement) {
-            $root.appendChild(children);
-            return $root;
+            $elem.appendChild(children);
+            return $elem;
         }
 
         if (children instanceof Text) {
-            $root.appendChild(children);
-            return $root;
+            $elem.appendChild(children);
+            return $elem;
         }
 
         for (const $child of children) {
-            $root.appendChild($child);
+            $elem.appendChild($child);
         }
 
-        return $root;
+        return $elem;
     };
+
+export const $ = {
+    div: (spec: DOMSpec<"div"> = {}) => createElement("div")(spec),
+    span: (spec: DOMSpec<"span"> = {}) => createElement("span")(spec),
+    button: (spec: DOMSpec<"button"> = {}) => createElement("button")(spec),
+    img: (spec: DOMSpec<"img"> = {}) => createElement("img")(spec),
+    header: (spec: DOMSpec<"header"> = {}) => createElement("header")(spec),
+    h2: (spec: DOMSpec<"h2"> = {}) => createElement("h2")(spec),
+};
