@@ -1,3 +1,9 @@
+/* CGV 스타일 */
+* {
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Helvetica", "Arial",
+        sans-serif !important;
+}
+
 html,
 body {
     padding: 0;
