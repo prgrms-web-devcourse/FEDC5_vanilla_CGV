@@ -1,0 +1,81 @@
+.filterBar {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    align-items: center;
+}
+
+.filterBar .filterBar__stringSort ul {
+    list-style: none;
+    display: flex;
+    color: gray;
+    padding: 0;
+    list-style-position: outside;
+    text-align: center;
+}
+.filterBar .filterBar__stringSort ul li {
+    margin-left: 1.5rem;
+}
+.filterBar .filterBar__stringSort ul li a {
+    margin-left: -10px;
+    cursor: pointer;
+}
+
+.dateBar {
+    display: flex;
+    flex-direction: column;
+}
+.dateBar .dateBar__nowDate {
+    display: flex;
+    justify-content: center;
+}
+.dateBar .dateBar__dateSelect {
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    padding: 0;
+}
+.dateBar .dateBar__dateSelect li {
+    width: 2.4rem;
+    height: 2.4rem;
+    font-weight: bold;
+    border: 1px solid white;
+    border-radius: 3px;
+    color: gray;
+    text-align: center;
+}
+.movieChart__ul {
+    display: flex;
+    gap: 20px 2%; /*아이템의 개수가 지정된 행의 n배수가 아닐 때를 위해*/
+    flex-wrap: wrap;
+    padding: 0;
+}
+.movieChart__li {
+    position: relative;
+    width: 30%;
+    list-style: none;
+}
+.movieChart__li_div {
+    display: flex;
+    justify-content: center;
+}
+.movieChart__li_div img {
+    width: 100%;
+    border-radius: 5px;
+}
+.movieChart__div_before {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60%;
+    background: linear-gradient(to bottom, #00000000, #000000cc);
+    z-index: 1;
+    border-radius: 5px;
+}
+.movieChart__movieName {
+    position: absolute;
+    color: white;
+    bottom: 0;
+    font-size: 0.8rem;
+    z-index: 2;
+}
