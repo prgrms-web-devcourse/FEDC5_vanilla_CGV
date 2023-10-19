@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="./reservation.css" />
+        <!-- Modal 관련 CSS 분리를 위함 -->
+        <link rel="stylesheet" href="./reservation_modal.css" />
+        <title>CJ CGV</title>
+    </head>
+    <body>
+        <div id="root"></div>
+        <script type="module">
+            // Modal 예시 코드
+            import { Modal } from "../dist/src/components/Modal.js";
+
+            const $root = document.getElementById("root");
+            if (!$root) {
+                throw new Error("root element가 없습니다.");
+            }
+
+            // Modal 생성
+            const modal = new Modal($root);
+
+            // 콘텐츠 영역 생성
+            const $content = document.createElement("div");
+            $content.style.backgroundColor = "yellow";
+            $content.style.width = "100%";
+            $content.style.height = "1000px";
+            $content.style.display = "flex";
+            $content.style.flexDirection = "column";
+
+            // Footer 생성 (빈 footer)
+            const $footer = document.createElement("footer");
+            modal.setBodyContent($content);
+            modal.setFooterContent($footer);
+
+            // open-close-open 예시 실행
+            modal.open();
+            setTimeout(() => {
+                modal.close();
+            }, 2300);
+            setTimeout(() => {
+                modal.open();
+            }, 4000);
+
+            // 모달 열기 버튼 마운트
+            const openBtn = document.createElement("button");
+            openBtn.textContent = "OPEN";
+            openBtn.onclick = () => {
+                modal.open();
+            };
+            $root.appendChild(openBtn);
+        </script>
+    </body>
+</html>
