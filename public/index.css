@@ -1,0 +1,28 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+/* menu */
+.main__menu-container {
+    display: flex;
+    padding: 14px 12px;
+}
+.main__menu-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+.main__menu-item > img {
+    width: 60px;
+    height: 60px;
+}
+.main__menu-item > span {
+    margin-top: 10px;
+    font-weight: 500;
+    font-size: 13px;
+    letter-spacing: -0.022em;
+    line-height: 1.231em;
+    text-align: center;
+}
