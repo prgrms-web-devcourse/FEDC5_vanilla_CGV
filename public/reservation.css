@@ -9,7 +9,4 @@ body {
 #root {
     width: 100%;
     height: 100%;
-
-    /* modal 때문에 하단에 영역이 늘어나는 건 숨김 */
-    overflow: hidden;
 }
