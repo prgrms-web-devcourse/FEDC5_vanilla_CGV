@@ -1,7 +1,6 @@
-import { createElement } from "@src/dom/createElement";
+import { $ } from "@src/dom/createElement";
 
 // 모달에서 여러 회 사용하는 상수
-const DIV = "div";
 const CLASS_MODAL_BACKDROP = "modal__backdrop";
 const CLASS_MODAL_BACKDROP_INVISIBLE = "modal__backdrop--invisible";
 const CLASS_SLIDE_IN_DOWN = "slideInDown";
@@ -47,31 +46,27 @@ export class Modal {
 
         // 요소 생성
         // 배경
-        this.$backdrop = createElement(DIV)({
-            classes: [CLASS_MODAL_BACKDROP, CLASS_MODAL_BACKDROP_INVISIBLE],
-            props: {
-                onclick: closeHandler,
-            },
+        this.$backdrop = $.div({
+            className: [CLASS_MODAL_BACKDROP, CLASS_MODAL_BACKDROP_INVISIBLE],
+            onclick: closeHandler,
             children:
                 // 모달 루트 (애니메이션 실행됨)
-                (this.$root = createElement(DIV)({
-                    classes: "modal__root--for-animation",
+                (this.$root = $.div({
+                    className: "modal__root--for-animation",
                     children:
                         // 모달 컨테이너
-                        (this.$container = createElement(DIV)({
-                            classes: "modal__container",
+                        (this.$container = $.div({
+                            className: "modal__container",
                             children: [
                                 // 닫기 버튼
-                                createElement("button")({
-                                    classes: "modal__closeButton",
-                                    props: {
-                                        onclick: closeHandler,
-                                        textContent: "X",
-                                    },
+                                $.button({
+                                    className: "modal__closeButton",
+                                    onclick: closeHandler,
+                                    textContent: "X",
                                 }),
                                 // Modal 콘텐츠 영역이 길어질 때 스크롤 제공
-                                (this.$bodyScrollContainer = createElement(DIV)({
-                                    classes: "modal__body__scroll_container",
+                                (this.$bodyScrollContainer = $.div({
+                                    className: "modal__body__scroll_container",
                                 })),
                             ],
                         })),
